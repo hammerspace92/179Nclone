@@ -6,6 +6,14 @@ public class PlayMove : MonoBehaviour {
 	private float nextFire;
 	Quaternion rotation;
 	Vector3 currPosition;
+
+	/*Global Variables
+	double top_max = 3.5;
+	double bottom_max = -3.5;
+	double left_max = -6;
+	double right_max = 4.5;
+	*/
+
 	void Start () {
 	}
 	void Awake()
@@ -21,20 +29,29 @@ public class PlayMove : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKey (KeyCode.W)) {
-			transform.position += transform.up * 10.0f * Time.deltaTime;
-			currPosition = transform.position;
+			if (transform.position.y <= 6.5){
+				transform.position += transform.up * 10.0f * Time.deltaTime;
+				currPosition = transform.position;
+			}
+			//transform.Rotate (0, Time.deltaTime, 0, 0);
 		}
 		if (Input.GetKey (KeyCode.S)) {
-			transform.position += transform.up * -10.0f * Time.deltaTime;
-			currPosition = transform.position;
+			if (transform.position.y >= -6.5){
+				transform.position += transform.up * -10.0f * Time.deltaTime;
+				currPosition = transform.position;
+			}
 		}
 		if (Input.GetKey (KeyCode.A)) {
-			transform.position += transform.forward * -10.0f * Time.deltaTime;
-			currPosition = transform.position;
+			if (transform.position.z >= -6){
+				transform.position += transform.forward * -10.0f * Time.deltaTime;
+				currPosition = transform.position;
+			}
 		}
 		if (Input.GetKey (KeyCode.D)) {
-			transform.position += transform.forward * 10.0f * Time.deltaTime;
-			currPosition = transform.position;
+			if (transform.position.z <= 7.5){
+				transform.position += transform.forward * 10.0f * Time.deltaTime;
+				currPosition = transform.position;
+			}
 		}
 		if (Time.time > nextFire) {
 			if (Input.GetMouseButton (0) || Input.GetKey (KeyCode.Space)) {
@@ -44,4 +61,5 @@ public class PlayMove : MonoBehaviour {
 		}
 
 	}
+
 }
