@@ -3,10 +3,9 @@ using System.Collections;
 
 public class weapon_types : MonoBehaviour {
 	public Transform weapon_source; //source of the weapon
-
 	public GameObject[] weaponList; //array of weapon types
 	private int w_list_index;
-	private float activeFireRate;
+	private float activeFireRate = 0.2f;
 	// Use this for initialization
 	void Start () {
 		w_list_index = 0;
@@ -14,6 +13,8 @@ public class weapon_types : MonoBehaviour {
 		activeFireRate = weapon.FireRate ();
 		print (weaponList.Length);
 	}
+
+	//previously changed, reverted back to original
 	public void useSelectedWeapon(){
 		if (weapon_source) {
 			GameObject projectile = (GameObject)Instantiate( weaponList[w_list_index], weapon_source.position, weapon_source.rotation);

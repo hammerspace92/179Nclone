@@ -3,7 +3,7 @@ using System.Collections;
 
 public class master_bullet : MonoBehaviour {
 	public float damage;
-	public float fireRate;
+	private float fireRate;
 	private string creator;
 	public float speed;
 
@@ -16,12 +16,24 @@ public class master_bullet : MonoBehaviour {
 	void Update () {
 		Destroy (this.gameObject, 2);
 	}
+	public string byWho() {
+		return creator;
+	}
 	public void isCreator( string name ) {
 		creator = name;
 	}
-	void OnTriggerEnter( Collider target ) {
-		if (target.name == "Enemy" && creator == "Player") {
 
+	//modified OnTriggerEnter to take into account the creator and tag of the collided target
+	void OnTriggerEnter( Collider target ) {
+		print ("Creator is: " + creator + ", tag is: " + target.tag + "!");
+
+		if (target.tag == "Player" && creator == "Player") {
+
+		} else if (target.tag == "Enemy" && creator == "") {
+
+		} else {
+			Destroy(gameObject);
+			Destroy(target.gameObject);
 		}
 	}
 	public float FireRate() {

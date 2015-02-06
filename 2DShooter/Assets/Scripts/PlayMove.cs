@@ -3,7 +3,9 @@ using System.Collections;
 
 public class PlayMove : MonoBehaviour {
 	public weapon_types weapontypes;
-	private float nextFire;
+	public GameObject pExplosion;
+	private float nextFire = 0.9f;
+	private int secFire = 0;
 	Quaternion rotation;
 	Vector3 currPosition;
 
@@ -28,6 +30,7 @@ public class PlayMove : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
+		rotation = Quaternion.identity;
 		if (Input.GetKey (KeyCode.W)) {
 			if (transform.position.y <= 6.5){
 				transform.position += transform.up * 10.0f * Time.deltaTime;
@@ -53,13 +56,18 @@ public class PlayMove : MonoBehaviour {
 				currPosition = transform.position;
 			}
 		}
-		if (Time.time > nextFire) {
+
+		//modified code for weapon firing to be more reliable with a sentinel integer for 
+		//a fixed duration/frames between each firing
+		if (secFire > 8) {
 			if (Input.GetMouseButton (0) || Input.GetKey (KeyCode.Space)) {
 				nextFire = Time.time + weapontypes.activeFiringRate ();
 				weapontypes.useSelectedWeapon();
+				secFire = 0;
 			}
 		}
-
+		secFire++;
 	}
+
 
 }
